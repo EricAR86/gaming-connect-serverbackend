@@ -17,7 +17,7 @@ const PostSchema = new Schema(
     },
     language:{
       type: String,
-      enum: ["english", "español", "francais", "portugues", "italiano"],
+      enum: ["English", "Español", "Francais", "Portugues", "Italiano"],
       required: [true, 'Select a language'],
     },
     players: {
