@@ -16,8 +16,7 @@ const VideogameSchema = new Schema(
       type: String
     },
     platform:{
-      type: String,
-      enum: ["Xbox","Playstation", "Steam"]
+      type: Array
     },
     postRef:[{
       type:Schema.Types.ObjectId,

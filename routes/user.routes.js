@@ -2,9 +2,10 @@ const router = require("express").Router()
 const mongoose = require("mongoose")
 const User = require("../models/User.model")
 
-
-router.get("/signup", (req, res) => {
+// Listar todos los usuarios
+router.get("/users", (req, res) => {
   User.find()
+  .populate("postRef", "title")
   .then(users => {
     res.json(users)
   })
@@ -24,18 +25,50 @@ router.post("/signup", (req, res)=>{
     .catch((err) => console.log(err))
 })
 
-// Editar usuario
-router.put('/user/:userId', (req, res, next) => {
+// Buscar un User específico
+router.get('/users/:userId', (req, res, next) => {
   const { userId } = req.params;
 
+  // Valida que el userId exista
   if (!mongoose.Types.ObjectId.isValid(userId)) {
-      res.status(400).json({ message: 'Specified id is not valid' });
+      res.status(400).json({ message: 'Specified userId is not valid' });
       return;
   }
 
-  Project.findByIdAndUpdate(userId, req.body, { new: true })
+  User.findById(userId)
+  .populate("postRef", "_id title")
+      .then(user => res.status(200).json(user))
+      .catch(error => res.json(error));
+});
+
+// Editar usuario
+router.put('/users/:userId', (req, res, next) => {
+  const { userId } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+      res.status(400).json({ message: 'Specified userId is not valid' });
+      return;
+  }
+
+  User.findByIdAndUpdate(userId, req.body, { new: true })
       .then((updatedUser) => res.json(updatedUser))
       .catch(error => res.json(error));
 });
+
+// Borrar usuario
+router.delete('/users/:userId', (req, res, next) => {
+  const { userId } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+      res.status(400).json({ message: 'Specified userID is not valid' });
+      return;
+  }
+
+  User.findByIdAndRemove(userId)
+      .then(() => res.json({ message: `Project with ${userId} is removed successfully.` }))
+      .catch(error => res.json(error));
+});
+
+
 
 module.exports = router;
