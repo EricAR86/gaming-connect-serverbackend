@@ -22,12 +22,11 @@ const UserSchema = new Schema(
       type:String
     },
     platform:{
-      type: String,
-      enum: ["Xbox","Playstation", "Steam"]
+      type: String
     },
     avatar:{
       type:String,
-      default:"https://icon-library.com/images/default-user-icon/default-user-icon-13.jpg"
+      default:"https://www.google.com.mx/search?q=default+user&sxsrf=ALiCzsaFi_n40h6nYXkn8qwwAxDRv_lxxA:1653414343996&source=lnms&tbm=isch&sa=X&ved=2ahUKEwi7sY-12Pj3AhV7DEQIHe_8AHQQ_AUoAXoECAEQAw&biw=1366&bih=657&dpr=1#imgrc=UXM1nMyEO_eSnM"
     },
     postRef:[{
       type:Schema.Types.ObjectId,

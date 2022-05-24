@@ -11,6 +11,22 @@ router.get("/videogames", (req, res) => {
     .catch((err) => console.log(err))
     })
 
+// Buscar un Videogame específico
+router.get('/videogames/:videogameId', (req, res, next) => {
+    const { videogameId } = req.params;
+  
+    // Valida que el userId exista
+    if (!mongoose.Types.ObjectId.isValid(videogameId)) {
+        res.status(400).json({ message: 'Specified videogameId is not valid' });
+        return;
+    }
+  
+    User.findById(videogameId)
+    
+        .then(videogame => res.status(200).json(videogame))
+        .catch(error => res.json(error));
+  });
+
 // Crear videojuego
 router.post("/videogames/new", (req, res)=>{
     

@@ -5,6 +5,14 @@ const Videogame = require("../models/Videogame.model")
 const User = require("../models/User.model")
 const mongoose = require("mongoose")
 
+// Listar todos los post
+router.get("/posts", (req, res) => {
+    Post.find()
+    .then(posts => {
+      res.json(posts)
+    })
+    .catch((err) => console.log(err))
+  })
 
 // Crear post
 router.post('/posts/new', (req, res, next) => {
