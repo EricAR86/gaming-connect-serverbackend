@@ -9,7 +9,7 @@ const PostSchema = new Schema(
     },
     description:{
       type:String,
-      unique: [true, 'Please enter a description of your session'],
+      required: [true, 'Please enter a description of your session'],
     },
     date: {
       type: Date,
@@ -24,9 +24,9 @@ const PostSchema = new Schema(
         type: Number,
         default: 1
     },
-    comunication: {
-      type: Boolean,
-      default: false
+    communication: {
+      type: String,
+      enum: ["No", "Yes"],
     },
     category:{
       type: String,
