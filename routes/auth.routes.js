@@ -36,7 +36,7 @@ router.get("/session", (req, res) => {
 
 router.post("/signup", isLoggedOut, (req, res) => {
   const { username, password, email, country, platform } = req.body;
-
+console.log(req.body)
   if (!username) {
     return res
       .status(400)
@@ -74,6 +74,7 @@ router.post("/signup", isLoggedOut, (req, res) => {
       .then((salt) => bcrypt.hash(password, salt))
       .then((hashedPassword) => {
         // Create a user and save it in the database
+        console.log(hashedPassword)
         return User.create({
           username,
           password: hashedPassword,

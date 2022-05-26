@@ -43,7 +43,7 @@ router.get('/posts/:postId', (req, res, next) => {
     }
 
     Post.findById(postId)
-    .populate("videogameRef", "_id title")
+    .populate("videogameRef", "_id title image")
     .populate("userRef", "_id username")
         .then(post => res.status(200).json(post))
         .catch(error => res.json(error));

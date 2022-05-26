@@ -26,7 +26,7 @@ const UserSchema = new Schema(
     },
     avatar:{
       type:String,
-      default:"https://www.google.com.mx/search?q=default+user&sxsrf=ALiCzsaFi_n40h6nYXkn8qwwAxDRv_lxxA:1653414343996&source=lnms&tbm=isch&sa=X&ved=2ahUKEwi7sY-12Pj3AhV7DEQIHe_8AHQQ_AUoAXoECAEQAw&biw=1366&bih=657&dpr=1#imgrc=UXM1nMyEO_eSnM"
+      default:"http://www.4x4.ec/overlandecuador/wp-content/uploads/2017/06/default-user-icon-8.jpg"
     },
     postRef:[{
       type:Schema.Types.ObjectId,

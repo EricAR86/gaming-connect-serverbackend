@@ -12,18 +12,6 @@ router.get("/users", (req, res) => {
   .catch((err) => console.log(err))
 })
 
-// Crear/registrar usuario 
-router.post("/signup", (req, res)=>{
-  const {username, email, password, country, platform, avatar} = req.body
-  console.log(req.body)
-  User.create({username, email, password, country, platform, avatar})
-    .then(newUser => {
-      res.status(201).json({
-          msg: "Nuevo usuario creado",
-          newUser})
-    })
-    .catch((err) => console.log(err))
-})
 
 // Buscar un User específico
 router.get('/users/:userId', (req, res, next) => {
@@ -36,7 +24,7 @@ router.get('/users/:userId', (req, res, next) => {
   }
 
   User.findById(userId)
-  .populate("postRef", "_id title")
+  .populate("postRef", "_id title description date")
       .then(user => res.status(200).json(user))
       .catch(error => res.json(error));
 });
