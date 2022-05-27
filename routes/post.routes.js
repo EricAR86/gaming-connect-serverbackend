@@ -7,19 +7,30 @@ const mongoose = require("mongoose")
 
 // Listar todos los post
 router.get("/posts", (req, res) => {
-    Post.find()
-    .then(posts => {
-      res.json(posts)
-    })
-    .catch((err) => console.log(err))
-  })
+    const { language, platform } = req.query
+    console.log(language)
+    //Query filter mongodb
+    if (language) {
+        Post.find({ language, platform })
+            .then(posts => {
+                res.json(posts)
+            })
+            .catch((err) => console.log(err))
+    } else {
+        Post.find()
+            .then(posts => {
+                res.json(posts)
+            })
+            .catch((err) => console.log(err))
+    }
+})
 
 // Crear post
 router.post('/posts/new', (req, res, next) => {
-    const { videogameRef, userRef} = req.body;
-    
+    const { videogameRef, userRef } = req.body;
+
     console.log(req.body)
-    
+
     Post.create(req.body)
         .then(newPost => {
             return Videogame.findByIdAndUpdate(videogameRef, { $push: { postRef: newPost._id } });
@@ -43,8 +54,8 @@ router.get('/posts/:postId', (req, res, next) => {
     }
 
     Post.findById(postId)
-    .populate("videogameRef", "_id title image")
-    .populate("userRef", "_id username")
+        .populate("videogameRef", "_id title image")
+        .populate("userRef", "_id username")
         .then(post => res.status(200).json(post))
         .catch(error => res.json(error));
 });
