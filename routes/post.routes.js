@@ -33,10 +33,10 @@ router.post('/posts/new', (req, res, next) => {
 
     Post.create(req.body)
         .then(newPost => {
-            return Videogame.findByIdAndUpdate(videogameRef, { $push: { postRef: newPost._id } });
+            return User.findByIdAndUpdate(userRef, { $push: { postRef: newPost._id } });
         })
         .then(newPost => {
-            return User.findByIdAndUpdate(userRef, { $push: { postRef: newPost._id } });
+            return Videogame.findByIdAndUpdate(videogameRef, { $push: { postRef: newPost._id } });
         })
         .then(response => res.json(response))
         .catch(err => res.json(err));
