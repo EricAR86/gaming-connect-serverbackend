@@ -7,11 +7,11 @@ const mongoose = require("mongoose")
 
 // Listar todos los post
 router.get("/posts", (req, res) => {
-    const { language, platform } = req.query
-    console.log(language)
+    const { videogame, language } = req.query
+
     //Query filter mongodb
     if (language) {
-        Post.find({ language, platform })
+        Post.find({ title: videogame, language })
             .then(posts => {
                 res.json(posts)
             })
